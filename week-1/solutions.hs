@@ -26,7 +26,7 @@ averageThree :: Int -> Int -> Int -> Float
 averageThree x y z = fromIntegral (x + y + z) / 3
 
 absolute :: Int -> Int
-absolute value = sqrt value * value
+absolute value = if value < 0 then -value else value
 
 main :: IO ()
 main = do
