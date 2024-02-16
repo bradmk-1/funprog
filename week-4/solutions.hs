@@ -53,6 +53,20 @@ gradeStudents :: [StudentMark] -> [(String, Char)]
 gradeStudents studentList = [(i, grade (i, j)) | (i, j) <- studentList]
 
 duplicate :: String -> Int -> String
-duplicate str count
-  | count == 1 = str
-  | otherwise = str ++ duplicate str (count - 1)
+-- duplicate str count
+--   | count == 1 = str
+--   | otherwise = str ++ duplicate str (count - 1)
+duplicate str count = concat [str | _ <- [1 .. count]]
+
+-- check last  testcase
+divisors :: Int -> [Int]
+divisors a = [i | i <- [1 .. a], mod a i == 0]
+
+isPrime :: Int -> Bool
+isPrime a = a `elem` nums && 1 `elem` nums && length nums == 2
+  where
+    nums = divisors a
+
+split :: [(a, b)] -> ([a], [b])
+-- split pairList = ([fst i | i <- pairList], [snd i | i <- pairList])
+split pairList = ([i | (i, _) <- pairList], [j | (_, j) <- pairList])
