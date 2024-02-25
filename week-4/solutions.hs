@@ -5,22 +5,21 @@ type StudentMark = (String, Int)
 sumDifference :: Int -> Int -> (Int, Int)
 sumDifference a b = (a + b, a - b)
 
--- Fix
 grade :: StudentMark -> Char
 grade (name, mark)
+  | mark > 100 || mark < 0 = error "Invalid mark"
   | mark >= 70 = 'A'
   | mark >= 60 = 'B'
   | mark >= 50 = 'C'
   | mark >= 40 = 'D'
-  | mark < 40 = 'F'
-  | mark < 0 || mark > 100 = error "Invalid mark"
+  | otherwise = 'F'
 
 -- Fix
 capMark :: StudentMark -> StudentMark
 capMark (name, mark)
+  | mark > 100 || mark < 0 = error "Invalid mark"
   | mark >= 40 = (name, 40)
-  | mark < 40 && mark >= 0 = (name, mark)
-  | otherwise = error "Invalid mark"
+  | otherwise = (name, mark)
 
 firstNumbers :: Int -> [Int]
 firstNumbers n = [1 .. n]
@@ -62,10 +61,12 @@ duplicate str count = concat [str | _ <- [1 .. count]]
 divisors :: Int -> [Int]
 divisors a = [i | i <- [1 .. a], mod a i == 0]
 
+-- isPrime a = a `elem` nums && 1 `elem` nums && length nums == 2
+--   where
+--     nums = divisors a
+
 isPrime :: Int -> Bool
-isPrime a = a `elem` nums && 1 `elem` nums && length nums == 2
-  where
-    nums = divisors a
+isPrime a = divisors a == [1, a]
 
 split :: [(a, b)] -> ([a], [b])
 -- split pairList = ([fst i | i <- pairList], [snd i | i <- pairList])
